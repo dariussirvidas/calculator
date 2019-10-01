@@ -36,13 +36,13 @@ public class Main {
                 case "?":
                     for (int i = 9; i <= 99; i++) {
                         c = (b + a) / i - (a - b);
-                        error = -1;
 
                         System.out.print("(" + b + " + " + a + ") / " + i + " - (" + a + " - " + b + ") = " + c);
                         if (c > 0.25) System.out.println(" > 0.25");
                         else if (c < 0.25) System.out.println(" < 0.25");
                         else System.out.println(" == 0.25");
                     }
+                    error = -1;
                     break;
                 default:
                     error = 1;
