@@ -33,6 +33,17 @@ public class Main {
                     if (b == 0) error = 2;
                     else c = a / b;
                     break;
+                case "?":
+                    for (int i = 9; i <= 99; i++) {
+                        c = (b + a) / i - (a - b);
+                        error = -1;
+
+                        System.out.print("(" + b + " + " + a + ") / " + i + " - (" + a + " - " + b + ") = " + c);
+                        if (c > 0.25) System.out.println(" > 0.25");
+                        else if (c < 0.25) System.out.println(" < 0.25");
+                        else System.out.println(" == 0.25");
+                    }
+                    break;
                 default:
                     error = 1;
                     break;
@@ -40,7 +51,7 @@ public class Main {
 
             if (error == 1) System.out.println("Operacija negalima");
             else if (error == 2) System.out.println("Dalyba iš nulio negalima");
-            else System.out.println(a + " " + op + " " + b + " = " + c);
+            else if (error == 0) System.out.println(a + " " + op + " " + b + " = " + c);
 
             error = 0;
 
