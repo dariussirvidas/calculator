@@ -37,6 +37,16 @@ public class Main {
                 case "/":
                     dalinti();
                     break;
+                case "?":
+                    System.out.println("Įveskite sveiką skaičių");
+                    num1 = s.nextInt();
+                    System.out.println("Įveskite antrą sveiką skaičių");
+                    num2 = s.nextInt();
+                    for (int i = 9; i <= 99 ; i++) {
+                        res = gynimas(num1, num2, i);
+                        printRes(num1, num2, i, res);
+                    }
+                    break;
                 default:
                     System.out.println("Operacija negalima");
                     break;
@@ -121,6 +131,33 @@ public class Main {
      */
     public static void spausdinti(double sk1, double sk2, double sk3) {
         System.out.println(sk1 + " / " + sk2 + " = " + sk3);
+    }
+
+    /**
+     * gynimo užduotis - skaičiavimas pagal formulę
+     * @param sk1 sveikas skaičius
+     * @param sk2 sveikas skaičius
+     * @param i indeksas [9-99]
+     * @return skaičiavimo rezultatas
+     */
+    public static double gynimas(int sk1, int sk2, int i) {
+        double res;
+        res = (double) (sk2 + sk1) / i - (sk1 - sk2);
+        return res;
+    }
+
+    /**
+     * gynimo užduoties rezultato spausdinimas
+     * @param sk1 sveikas skaičius
+     * @param sk2 sveikas skaičius
+     * @param i indeksas [9-99]
+     * @param res skaičiavimo rezultatas
+     */
+    public static void printRes(int sk1, int sk2, int i, double res) {
+        System.out.print("(" + sk2 + " + " + sk1 + ") / " + i + " - (" + sk1 + " - " + sk2 + ") = ");
+        if (res > 0.25) System.out.println(res + " > " + 0.25);
+        else if (res < 0.25) System.out.println(res + " < " + 0.25);
+        else System.out.println(res + " == " + 0.25);
     }
 
 }
