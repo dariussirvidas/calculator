@@ -1,62 +1,79 @@
 package com.calculator;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Scanner s = new Scanner(System.in);
-        double a, b, c = 0;
+        double num1, num2;
         String op;
-        int error = 0;
-        boolean repeat = true;
 
-        while (repeat) {
-
-            System.out.println("Įveskite du skaičius ir operacijos ženklą atskirtus tarpais (pvz. 2 + 2)");
-            a = s.nextDouble();
-            op = s.next();
-            b = s.nextDouble();
-
-            switch (op) {
-                case "+":
-                    c = a + b;
+        while (true) {
+            while (true) {
+                System.out.println("Įveskite pirmą skaičių: ");
+                Scanner s = new Scanner(System.in);
+                try {
+                    num1 = s.nextDouble();
                     break;
-                case "-":
-                    c = a - b;
+                }
+                catch (InputMismatchException e) {
+                    System.out.println("Neteisingai įvestas skaičius! Bandykite dar kartą");
+                }
+            }
+            while (true) {
+                System.out.println("Įveskite operacijos ženklą: ");
+                Scanner s = new Scanner(System.in);
+                try {
+                    op = s.next();
+                    if(op.length() != 1) throw new Exception("Neteisingai įvestas operacijos ženklas!");
                     break;
-                case "*":
-                    c = a * b;
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage() + " Bandykite dar kartą");
+                }
+            }
+            while (true) {
+                System.out.println("Įveskite antrą skaičių: ");
+                Scanner s = new Scanner(System.in);
+                try {
+                    num2 = s.nextDouble();
                     break;
-                case "/":
-                    if (b == 0) error = 2;
-                    else c = a / b;
-                    break;
-                case "?":
-                    for (int i = 9; i <= 99; i++) {
-                        c = (b + a) / i - (a - b);
-
-                        System.out.print("(" + b + " + " + a + ") / " + i + " - (" + a + " - " + b + ") = " + c);
-                        if (c > 0.25) System.out.println(" > 0.25");
-                        else if (c < 0.25) System.out.println(" < 0.25");
-                        else System.out.println(" == 0.25");
-                    }
-                    error = -1;
-                    break;
-                default:
-                    error = 1;
-                    break;
+                }
+                catch (InputMismatchException e) {
+                    System.out.println("Neteisingai įvestas skaičius! Bandykite dar kartą");
+                }
             }
 
-            if (error == 1) System.out.println("Operacija negalima");
-            else if (error == 2) System.out.println("Dalyba iš nulio negalima");
-            else if (error == 0) System.out.println(a + " " + op + " " + b + " = " + c);
-
-            error = 0;
+            try {
+                System.out.println(String.format("%.2f %s %.2f = %.2f", num1, op, num2, calculate(num1, op, num2)));
+            }
+            catch (ArithmeticException e) {
+                System.out.println("Dalyba iš nulio negalima!");
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 
             System.out.println("Ar norite tęsti? (y/n)");
-            if (!s.next().equals("y")) repeat = false;
+            Scanner s = new Scanner(System.in);
+            if (!s.next().equals("y")) break;
+        }
+    }
+    private static double calculate(double n1, String o, double n2) throws Exception {
+        switch (o) {
+            case "+":
+                return n1 + n2;
+            case "-":
+                return n1 - n2;
+            case "*":
+                return n1 * n2;
+            case "/":
+                if(n2 == 0) throw new ArithmeticException("Dalyba iš nulio negallima");
+                return n1 / n2;
+            default:
+                throw new Exception("Operacija negalima!");
         }
     }
 }
